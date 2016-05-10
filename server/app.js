@@ -5,9 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
-var signup = require('./routes/signup');
-
 var app = express();
 
 // view engine setup
@@ -21,6 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+var router = require('./router/index')(app);
 
 if (app.get('env') === 'development') {
     // This will change in production since we'll be using the dist folder
@@ -57,7 +55,5 @@ if (app.get('env') === 'production') {
         });
     });
 }
-
-app.use('/signup', signup);
 
 module.exports = app;
